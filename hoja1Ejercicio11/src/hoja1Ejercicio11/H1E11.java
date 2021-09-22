@@ -1,5 +1,6 @@
 package hoja1Ejercicio11;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class H1E11 {
@@ -13,14 +14,18 @@ public class H1E11 {
 		
 		//Declaramos las variables
 		String nombre;
-		int año;
+		int añoNacimiento;
 		float media;
-		int añoActual=2021;
+		int añoActual=Calendar.getInstance().get(Calendar.YEAR); //obtiene el año del sistema (válido para todos los años)
 		int edad;
 		int suma=0; //contador para las edades
 		int numNombres=0; //contador para el numero de nombres introducido
 		boolean continuar=true;
-		String mensaje;
+		int menor=Integer.MAX_VALUE; //para sacar el nombre del alumno de menor edad
+		String nombreMenor = ""; //variable para guardar el nombre del alumno más pequeño. Inicializamos así para que no de error por los if
+								 //tambien lo podemos hacer con null
+		String mensajeMedia;
+		String mensajeMenor;
 		Scanner sc=new Scanner(System.in);
 		
 		//Como no sabemos el numero de iteraciones es un bucle do-while
@@ -31,33 +36,57 @@ public class H1E11 {
 			nombre=sc.nextLine();
 			
 			//solo pedimos el año al usuario si el nombre es distinto de fin
-			if (nombre.equalsIgnoreCase("fin"))
+			if (nombre.equalsIgnoreCase("fin"))  //ignore case se refiere a que puedo escribir fin con mayusculas
+												 //o con mezcla mayusculas y minusculas que va a funcionar igual
 			{
 				continuar=false;
 			}
 			else 
 			{
 				//sumamos 1 al contador del numero de nombres
-				numNombres++;
+				numNombres++; //si lo ponemos despues del nombre estariamos sumando uno mas
 				
 				System.out.print("Introduzca año de nacimiento: ");
-				año=Integer.valueOf(sc.nextLine()); //¿por qué? (ver apuntes)
+				añoNacimiento=Integer.valueOf(sc.nextLine()); //¿por qué? (ver apuntes)
 				
 				//calculamos la edad haciendo la resta con el año actual
-				edad=añoActual-año;
+				edad=añoActual-añoNacimiento;
 				
 				//acumulamos la edad en la suma para luego hacer la media
 				suma=suma+edad;
+				
+				//nombre del alumno menor
+				if (edad<menor)
+				{
+					menor=edad;
+					nombreMenor=nombre;
+				}
 			}
 			
 		}while(continuar==true);
 		
-		//hacemos la media
-		media=(float)suma/numNombres;
 		
-		//Sacamos por pantalla la media de edades
-		mensaje="La media de edades es: "+media;
-		System.out.println(mensaje);
+		if(numNombres>0) //hace que no se rompa si el primer nombre es fin
+		{
+			//hacemos la media
+			media=(float)suma/numNombres;  //estamos dividiendo dos enteros, por lo que para que la media sea
+										   //tipo float tenemos que convertir 1 o los dos a tipo float
+			
+			//Sacamos por pantalla los resultados
+			mensajeMedia="La media de edades es: "+ media;
+			mensajeMenor="El alumno de menor edad es: "+ nombreMenor;
+		}
+		else
+		{
+			media=0;
+			mensajeMedia="No hay alumnos para hacer la media de edad";
+			mensajeMenor="No hay alumnos";
+		}
+		
+		System.out.println(mensajeMedia);
+		System.out.println(mensajeMenor);
+		
+		
 		
 		sc.close();
 		
