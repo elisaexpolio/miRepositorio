@@ -41,7 +41,7 @@ public class H1E11 {
 				numNombres++;
 				
 				System.out.print("Introduzca año de nacimiento: ");
-				año=Integer.parseInt(sc.nextLine());
+				año=Integer.valueOf(sc.nextLine()); //¿por qué? (ver apuntes)
 				
 				//calculamos la edad haciendo la resta con el año actual
 				edad=añoActual-año;
@@ -53,7 +53,7 @@ public class H1E11 {
 		}while(continuar==true);
 		
 		//hacemos la media
-		media=suma/numNombres;
+		media=(float)suma/numNombres;
 		
 		//Sacamos por pantalla la media de edades
 		mensaje="La media de edades es: "+media;
