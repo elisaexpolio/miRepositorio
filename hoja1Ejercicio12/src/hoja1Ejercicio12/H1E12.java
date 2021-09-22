@@ -21,21 +21,26 @@ public class H1E12 {
 		
 		sc.close();
 		
-		
+		//Quitamos el 0,1 y los negativos 
+		if(numero<2)
+		{
+			primo=false;
+		}
 		
 		//Creamos un bucle for
 		for (int candidatoDivisor=2; candidatoDivisor<numero && primo==true; candidatoDivisor++)
-			//el bucle excluye el 1 y el propio numero como divisores (condicion de primo)
-			//por tanto si otro numero
+		//el bucle excluye el 1 y el propio numero como divisores (condicion de primo)
+		//por tanto si otro numero
 		{
 			//calculamos el resto
 			resto=numero%candidatoDivisor;
-			
+				
 			//si el resto es cero, hemos encontrado un divisor
 			if (resto==0)
 			{primo=false;}
-			
+				
 		}
+			
 		
 		//Sacamos el mensaje
 		mensaje=(primo==true)?"El número " + numero + " es primo.":"El número " + numero + " NO es primo";
